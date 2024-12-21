@@ -49,11 +49,18 @@ With the identifiers in the status.db we download the records record by record, 
 
 The downloaded data is stored in files, a file for every record, named with the number of the identifier. Because the number of records could be huge (eg 1.2 million for the bibliographical data) we store them in a balanced directory structure based on the last three digits of the (numerical) identifier.
 
+Run the extract command from the specific directory (e.g. archives):
+
+```python extract.py```
+
 todo:
 * how to incrementally update the data (instead of downloading everything everytime)
 
 ## Transform
-TBD
+For the transformer you will need the appriote xslt stylesheet. E.g. for archives we use [Ivo's ead2rico](https://github.com/ivozandhuis/ead2rico).
+Run the extra command from the specific directory providing the stylesheet as command line argument:
+
+```python transformer.py /Users/me/git/ead2rico/xsl/ead2rico.xsl```
 
 ## Load
 TBD
