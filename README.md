@@ -51,7 +51,7 @@ The downloaded data is stored in files, a file for every record, named with the 
 
 Run the extract command from the specific directory (e.g. archives):
 
-```python extract.py```
+```python extractor.py```
 
 todo:
 * how to incrementally update the data (instead of downloading everything everytime)
