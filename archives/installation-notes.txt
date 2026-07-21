@@ -10,7 +10,7 @@ pip install <package>```
 
 Then run ```python3 -m pip install <package>```
 
-- sqlite3*
+- sqlite3
 - os
 - datetime*
 - pathlib*
