@@ -1,0 +1,27 @@
+# Installation notes 2027-07-21
+# just a log book of what to do, remove and update readme afterwards
+
+
+On Debian Trixie you can install the packages in a virtual environment.
+```sudo apt install python3-venv python3-pip
+python3 -m venv myenv
+source myenv/bin/activate
+pip install <package>```
+
+Then run ```python3 -m pip install <package>```
+
+- sqlite3*
+- os
+- datetime*
+- pathlib*
+- csv
+- json
+- requests*
+- Sickle (OAI-PMH library)*
+For the packages with '*' this seemed to work
+
+We also needed to clone 'rico-converter'. Is that this one: https://github.com/ArchivesNationalesFR/rico-converter/
+We also needed to clone 'marc2bibframe2'. Is that thie one: https://github.com/lcnetdev/marc2bibframe2 
+
+Only indirectly mentioned, but I think we also need: https://github.com/ivozandhuis/ead2rico
+
