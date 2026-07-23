@@ -66,7 +66,7 @@ while True:
         print("OAI error")
         break
 
-    try: 
+    try:
         root = etree.XML(response)
     except:
         print("Parse error XML")
@@ -74,9 +74,20 @@ while True:
 
     resources = root.xpath('/oai:OAI-PMH/oai:ListRecords/oai:record', namespaces=NS)
     for resource in resources:
-        status = resource.find("oai:header", namespaces=NS).get('status')
-        if status == 'deleted': continue
-        record = resource.find("oai:metadata//ead:ead", namespaces=NS)
+        header = resource.find("oai:header", namespaces=NS)
+        if header is not None and header.get('status') == 'deleted':
+            continue
+
+        ead_matches = resource.xpath("oai:metadata//ead:ead", namespaces=NS)
+        if not ead_matches:
+            oai_id_elem = resource.find("oai:header/oai:identifier", namespaces=NS)
+            bad_id = oai_id_elem.text if oai_id_elem is not None else "unknown"
+            print(f"Warning: no ead:ead metadata for {bad_id}, skipping")
+            with open("bad_ids.txt", "a") as badfile:
+                badfile.write(bad_id + "\n")
+            continue
+        record = ead_matches[0]
+
         oai_identifier = resource.find("oai:header/oai:identifier", namespaces=NS).text
         identifier = oai_identifier.partition(oai_identifier_prefix)[2]
         file = ext_path.joinpath(to_balanced_path(identifier, '.xml', 6))
@@ -88,6 +99,7 @@ while True:
     resumption_token_element = root.find(".//oai:resumptionToken", namespaces=NS)
     if resumption_token_element is not None:
         oai_payload["resumptionToken"] = resumption_token_element.text
-    else: break
+    else:
+        break
 
 print('done')
